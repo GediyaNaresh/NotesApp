@@ -15,10 +15,13 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.app.Activity;
 import android.app.NativeActivity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -57,6 +60,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.nareshgediya.firebasenotesapp.NetWorkCheck.CheckInterrnetConnetion;
+import com.nareshgediya.firebasenotesapp.NetWorkCheck.NetworkUtils;
 import com.nareshgediya.firebasenotesapp.SplashLogin.LoginActivity;
 import com.nareshgediya.firebasenotesapp.model.Note;
 import com.nareshgediya.firebasenotesapp.note.AddNote;
@@ -72,6 +77,7 @@ import soup.neumorphism.NeumorphFloatingActionButton;
 
 public class MainActivity extends AppCompatActivity implements SingalChoiceAlertDialog.SingleChoiceListner {
     private static final String FILE_NAME = "myFile";
+    BroadcastReceiver broadcastReceiver = null;
 
     private AdView adView1;
     private InterstitialAd interstitialAd;
@@ -109,6 +115,8 @@ public class MainActivity extends AppCompatActivity implements SingalChoiceAlert
         noteCount = findViewById(R.id.noteCount);
         AudienceNetworkAds.initialize(MainActivity.this);
 
+        broadcastReceiver = new CheckInterrnetConnetion();
+
 
         instance = this;
         fStore = FirebaseFirestore.getInstance();
@@ -137,11 +145,11 @@ public class MainActivity extends AppCompatActivity implements SingalChoiceAlert
         adView1 = new AdView(this, "IMG_16_9_APP_INSTALL#339962074271690_339963117604919", AdSize.BANNER_HEIGHT_50);
 
         //     LinearLayout adContainer = (LinearLayout) findViewById(R.id.banner_container);
-
         //      adContainer.addView(adView1);
 
 //        showBannerAd();
 //        interstitialAdShow();
+        checkInternet();
 
 //        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 //        noteLists.setLayoutManager(linearLayoutManager);
@@ -203,8 +211,18 @@ public class MainActivity extends AppCompatActivity implements SingalChoiceAlert
             recyclerUpdateByDESCENDING(fStore, user, note, noteAdapter, MainActivity.this, noteCount);
         }
 
-
     }
+    private void checkInternet() {
+
+        registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
+    }
+
 
     public static MainActivity getInstance() {
         return instance;
