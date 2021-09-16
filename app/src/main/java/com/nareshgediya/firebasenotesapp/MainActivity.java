@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements SingalChoiceAlert
     NavigationView navigationView;
 
 
-
     NeumorphFloatingActionButton fab;
     TextView noteCount;
     RecyclerView noteLists;
@@ -154,26 +153,24 @@ public class MainActivity extends AppCompatActivity implements SingalChoiceAlert
         toggle.syncState();
 
 
-
-
         navigationView.setNavigationItemSelectedListener(item -> {
-           switch (item.getItemId()  ){
-               case R.id.nav_addNote:
-                   startActivity(new Intent(MainActivity.this, AddNote.class));
-                   overridePendingTransition(R.anim.bottomin,R.anim.bottomout);
-               break;
-               case R.id.nav_logout:
-                   fAuth.signOut();
-                   startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                   finish();
-                   break;
+            switch (item.getItemId()) {
+                case R.id.nav_addNote:
+                    startActivity(new Intent(MainActivity.this, AddNote.class));
+                    overridePendingTransition(R.anim.bottomin, R.anim.bottomout);
+                    break;
+                case R.id.nav_logout:
+                    fAuth.signOut();
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+                    break;
 
-               case R.id.nav_delet_all:
-                  deleteAllNotes();
-                   break;
-               default:
-                   Toast.makeText(MainActivity.this, "Coming soon..", Toast.LENGTH_LONG).show();
-           }
+                case R.id.nav_delet_all:
+                    deleteAllNotes();
+                    break;
+                default:
+                    Toast.makeText(MainActivity.this, "Coming soon..", Toast.LENGTH_LONG).show();
+            }
             return true;
         });
 
@@ -181,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements SingalChoiceAlert
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, AddNote.class));
-                overridePendingTransition(R.anim.bottomin,R.anim.bottomout);
+                overridePendingTransition(R.anim.bottomin, R.anim.bottomout);
 
             }
         });

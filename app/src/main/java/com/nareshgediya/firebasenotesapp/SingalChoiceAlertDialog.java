@@ -13,18 +13,19 @@ import androidx.fragment.app.DialogFragment;
 public class SingalChoiceAlertDialog extends DialogFragment {
     int position = 0;
 
-    public interface SingleChoiceListner{
-        void  OnpositiveBtnClick(String [] list, int position);
+    public interface SingleChoiceListner {
+        void OnpositiveBtnClick(String[] list, int position);
     }
+
     SingleChoiceListner listner;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            listner = (SingleChoiceListner)context;
+            listner = (SingleChoiceListner) context;
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -35,7 +36,7 @@ public class SingalChoiceAlertDialog extends DialogFragment {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
-        String [] list = {"Sort by Oldest","Sort by Latest"};
+        String[] list = {"Sort by Oldest", "Sort by Latest"};
 
         alertDialog.setTitle("Sort").setSingleChoiceItems(list, position, new DialogInterface.OnClickListener() {
             @Override
@@ -45,13 +46,11 @@ public class SingalChoiceAlertDialog extends DialogFragment {
         }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                listner.OnpositiveBtnClick(list,position);
+                listner.OnpositiveBtnClick(list, position);
             }
         });
-return alertDialog.create();
+        return alertDialog.create();
     }
-
-
 
 
 }

@@ -23,13 +23,11 @@ import com.nareshgediya.firebasenotesapp.R;
 import soup.neumorphism.NeumorphButton;
 
 public class LoginActivity extends AppCompatActivity {
-TextView dontText;
-    EditText lEmail,lPassword;
+    TextView dontText;
+    EditText lEmail, lPassword;
     NeumorphButton loginNow;
     FirebaseAuth fAuth;
     ProgressBar spinner;
-
-
 
 
     @Override
@@ -37,7 +35,7 @@ TextView dontText;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Util.blackIconStatusBar(LoginActivity.this,R.color.dark_background);
+        Util.blackIconStatusBar(LoginActivity.this, R.color.dark_background);
         dontText = findViewById(R.id.donthave);
 
         lEmail = findViewById(R.id.email1);
@@ -48,7 +46,7 @@ TextView dontText;
 
 
         fAuth = FirebaseAuth.getInstance();
-        if(fAuth.getCurrentUser() != null){
+        if (fAuth.getCurrentUser() != null) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
@@ -60,14 +58,14 @@ TextView dontText;
                 String mEmail = lEmail.getText().toString();
                 String mPassword = lPassword.getText().toString();
 
-                if(mEmail.isEmpty() || mPassword.isEmpty()){
+                if (mEmail.isEmpty() || mPassword.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Fields Are Required.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 spinner.setVisibility(View.VISIBLE);
 
-                fAuth.signInWithEmailAndPassword(mEmail,mPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                fAuth.signInWithEmailAndPassword(mEmail, mPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         Toast.makeText(LoginActivity.this, "Success !", Toast.LENGTH_SHORT).show();
@@ -87,7 +85,7 @@ TextView dontText;
         dontText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this,RegisterAcitivty.class));
+                startActivity(new Intent(LoginActivity.this, RegisterAcitivty.class));
                 finish();
             }
         });

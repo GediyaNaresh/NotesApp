@@ -29,8 +29,8 @@ import com.nareshgediya.firebasenotesapp.R;
 import soup.neumorphism.NeumorphButton;
 
 public class RegisterAcitivty extends AppCompatActivity {
-TextView already;
-    EditText rUserName,rUserEmail,rUserPass,rUserConfPass;
+    TextView already;
+    EditText rUserName, rUserEmail, rUserPass, rUserConfPass;
 
     NeumorphButton singUp;
     TextView loginAct;
@@ -72,29 +72,29 @@ TextView already;
 
                 progressBar.setVisibility(View.VISIBLE);
 
-              fAuth.createUserWithEmailAndPassword(uUserEmail,uUserPass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                  @Override
-                  public void onSuccess(AuthResult authResult) {
-                      progressBar.setVisibility(View.INVISIBLE);
-                      Toast.makeText(RegisterAcitivty.this, "Your Account has Created...", Toast.LENGTH_SHORT).show();
+                fAuth.createUserWithEmailAndPassword(uUserEmail, uUserPass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(RegisterAcitivty.this, "Your Account has Created...", Toast.LENGTH_SHORT).show();
 
-                      FirebaseUser user = fAuth.getCurrentUser();
-                      UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
-                              .setDisplayName(uUsername).build();
+                        FirebaseUser user = fAuth.getCurrentUser();
+                        UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(uUsername).build();
 
-                      user.updateProfile(request);
+                        user.updateProfile(request);
 
-                      startActivity(new Intent(RegisterAcitivty.this, LoginActivity.class));
-                      finish();
-                  }
-              }).addOnFailureListener(new OnFailureListener() {
-                  @Override
-                  public void onFailure(@NonNull Exception e) {
-                      progressBar.setVisibility(View.INVISIBLE);
-                      Toast.makeText(RegisterAcitivty.this, "Failed" + e.toString(), Toast.LENGTH_SHORT).show();
-                      Log.d("abcd",e.getLocalizedMessage().toString());
-                  }
-              });
+                        startActivity(new Intent(RegisterAcitivty.this, LoginActivity.class));
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(RegisterAcitivty.this, "Failed" + e.toString(), Toast.LENGTH_SHORT).show();
+                        Log.d("abcd", e.getLocalizedMessage().toString());
+                    }
+                });
 
 
             }

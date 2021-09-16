@@ -45,19 +45,17 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
     Context context;
 
 
-
-    public NoteAdapter(ArrayList<Note> notes){
-     this.notes =  notes;
+    public NoteAdapter(ArrayList<Note> notes) {
+        this.notes = notes;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_view_layout,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_view_layout, parent, false);
         return new MyViewHolder(view);
     }
-
 
 
     @Override
@@ -70,22 +68,22 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
         holder.noteContent.setText(notes.get(position).getContent());
         holder.timeStmap.setText(notes.get(position).getTimeStamp());
         final int code = getRandomColor();
-        holder.mCardView.setCardBackgroundColor(holder.view.getResources().getColor(code,null));
+        holder.mCardView.setCardBackgroundColor(holder.view.getResources().getColor(code, null));
 
 
         holder.iconMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
 
-                PopupMenu menu = new PopupMenu(v.getContext(),v);
+                PopupMenu menu = new PopupMenu(v.getContext(), v);
                 menu.setGravity(Gravity.END);
                 menu.getMenu().add("Edit").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         Intent i = new Intent(v.getContext(), EditNote.class);
-                        i.putExtra("title",notes.get(position).getTitle());
-                        i.putExtra("content",notes.get(position).getContent());
-                        i.putExtra("noteId",notes.get(position).getId());
+                        i.putExtra("title", notes.get(position).getTitle());
+                        i.putExtra("content", notes.get(position).getContent());
+                        i.putExtra("noteId", notes.get(position).getId());
 
                         v.getContext().startActivity(i);
                         return false;
@@ -104,8 +102,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(v.getContext(), "Deleted", Toast.LENGTH_SHORT).show();
 
-            getUpdateRecycler(notes, v.getContext());
-                              //  v.getContext().startActivity(new Intent(v.getContext(), MainActivity.class));
+                                getUpdateRecycler(notes, v.getContext());
+                                //  v.getContext().startActivity(new Intent(v.getContext(), MainActivity.class));
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -124,22 +122,22 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
         });
 
 
-
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), NoteDetail.class);
-                i.putExtra("title",notes.get(position).getTitle());
-                i.putExtra("content",notes.get(position).getContent());
-                i.putExtra("code",code);
-                i.putExtra("noteId",notes.get(position).getId());
-                i.putExtra("timeStamp",notes.get(position).getTimeStamp());
+                i.putExtra("title", notes.get(position).getTitle());
+                i.putExtra("content", notes.get(position).getContent());
+                i.putExtra("code", code);
+                i.putExtra("noteId", notes.get(position).getId());
+                i.putExtra("timeStamp", notes.get(position).getTimeStamp());
                 v.getContext().startActivity(i);
             }
         });
 
     }
-    public int getUpdateRecycler(ArrayList<Note> notes, Context context){
+
+    public int getUpdateRecycler(ArrayList<Note> notes, Context context) {
         this.context = context;
 
         notes.clear();
@@ -191,7 +189,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView noteTitle,noteContent, timeStmap;
+        TextView noteTitle, noteContent, timeStmap;
         View view;
         CardView mCardView;
         ImageView iconMenu;

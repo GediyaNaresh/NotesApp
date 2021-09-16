@@ -22,7 +22,6 @@ import com.nareshgediya.firebasenotesapp.MainActivity;
 import com.nareshgediya.firebasenotesapp.R;
 
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +30,7 @@ import soup.neumorphism.NeumorphFloatingActionButton;
 
 public class EditNote extends AppCompatActivity {
     Intent data;
-    EditText editNoteTitle,editNoteContent;
+    EditText editNoteTitle, editNoteContent;
     FirebaseFirestore fStore;
     ProgressBar spinner;
     FirebaseUser user;
@@ -67,7 +66,7 @@ public class EditNote extends AppCompatActivity {
                 String nTitle = editNoteTitle.getText().toString();
                 String nContent = editNoteContent.getText().toString();
 
-                if(nTitle.isEmpty() || nContent.isEmpty()){
+                if (nTitle.isEmpty() || nContent.isEmpty()) {
                     Toast.makeText(EditNote.this, "Can not Save note with Empty Field.", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -77,9 +76,9 @@ public class EditNote extends AppCompatActivity {
                 // save note
 
                 DocumentReference docref = fStore.collection("notes").document(user.getUid()).collection("myNotes").document(data.getStringExtra("noteId"));
-                Map<String,Object> note = new HashMap<>();
-                note.put("title",nTitle);
-                note.put("content",nContent);
+                Map<String, Object> note = new HashMap<>();
+                note.put("title", nTitle);
+                note.put("content", nContent);
 
                 docref.update(note).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

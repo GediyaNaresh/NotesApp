@@ -17,8 +17,10 @@ public class Note {
         this.timeStamp = timeStamp;
     }
 
-    public Note(){}
-    public Note(String title,String content, String id, String timeStamp){
+    public Note() {
+    }
+
+    public Note(String title, String content, String id, String timeStamp) {
         this.title = title;
         this.content = content;
         this.id = id;

@@ -36,7 +36,7 @@ public class NoteDetail extends AppCompatActivity {
 
         TextView content = findViewById(R.id.noteDetailsContent);
         TextView title = findViewById(R.id.noteDetailsTitle);
-   timeText = findViewById(R.id.timeText);
+        timeText = findViewById(R.id.timeText);
         content.setMovementMethod(new ScrollingMovementMethod());
 
         content.setText(data.getStringExtra("content"));
@@ -50,10 +50,10 @@ public class NoteDetail extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent(view.getContext(),EditNote.class);
-                i.putExtra("title",data.getStringExtra("title"));
-                i.putExtra("content",data.getStringExtra("content"));
-                i.putExtra("noteId",data.getStringExtra("noteId"));
+                Intent i = new Intent(view.getContext(), EditNote.class);
+                i.putExtra("title", data.getStringExtra("title"));
+                i.putExtra("content", data.getStringExtra("content"));
+                i.putExtra("noteId", data.getStringExtra("noteId"));
                 startActivity(i);
             }
         });
@@ -62,7 +62,7 @@ public class NoteDetail extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);

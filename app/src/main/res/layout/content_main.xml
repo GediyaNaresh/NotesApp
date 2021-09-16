@@ -19,8 +19,6 @@
 
 
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notelist"
         android:layout_width="0dp"

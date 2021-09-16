@@ -42,13 +42,13 @@ import soup.neumorphism.NeumorphButton;
 
 public class AddNote extends AppCompatActivity {
     FirebaseFirestore fStore;
-    EditText noteTitle,noteContent;
+    EditText noteTitle, noteContent;
     ProgressBar progressBarSave;
     FirebaseUser user;
     NoteAdapter noteAdapter;
     ArrayList<Note> note;
-   Context context;
-   MainActivity mainActivity;
+    Context context;
+    MainActivity mainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class AddNote extends AppCompatActivity {
         noteTitle = findViewById(R.id.addNoteTitle);
         progressBarSave = findViewById(R.id.progressBar);
 
-       user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         note = new ArrayList<>();
         noteAdapter = new NoteAdapter(note);
 
@@ -70,13 +70,13 @@ public class AddNote extends AppCompatActivity {
 
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         Date time = new Date();
-       String timeT =  sdf.format(time).toString();
+        String timeT = sdf.format(time).toString();
 
         Date currentTime = Calendar.getInstance().getTime();
-       String formatedTime =  DateFormat.getDateInstance().format(currentTime);
-       String [] spliteDate = formatedTime.split(",");
+        String formatedTime = DateFormat.getDateInstance().format(currentTime);
+        String[] spliteDate = formatedTime.split(",");
 
-       String month = spliteDate[0].trim();
+        String month = spliteDate[0].trim();
 
         NeumorphButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +85,7 @@ public class AddNote extends AppCompatActivity {
                 String nTitle = noteTitle.getText().toString();
                 String nContent = noteContent.getText().toString();
 
-                if(nTitle.isEmpty() || nContent.isEmpty()){
+                if (nTitle.isEmpty() || nContent.isEmpty()) {
                     Toast.makeText(AddNote.this, "Can not Save note with Empty Field.", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -96,13 +96,12 @@ public class AddNote extends AppCompatActivity {
 
                 progressBarSave.setVisibility(View.VISIBLE);
 
-                Map<String,Object> noteMap = new HashMap<>();
-                noteMap.put("title",nTitle);
-                noteMap.put("content",nContent);
-                noteMap.put("search",nTitle.toLowerCase());
-                noteMap.put("timeStamp", timeT+ " "+month);
+                Map<String, Object> noteMap = new HashMap<>();
+                noteMap.put("title", nTitle);
+                noteMap.put("content", nContent);
+                noteMap.put("search", nTitle.toLowerCase());
+                noteMap.put("timeStamp", timeT + " " + month);
                 noteMap.put("time", String.valueOf(l));
-
 
 
                 fStore.collection("notes").document(user.getUid()).collection("myNotes")
@@ -130,7 +129,7 @@ public class AddNote extends AppCompatActivity {
                                             }
                                         });
                                 Toast.makeText(AddNote.this, "Note Added.", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(AddNote.this, MainActivity.class));
+                                startActivity(new Intent(AddNote.this, MainActivity.class));
                                 finish();
                             }
                         })
@@ -145,22 +144,21 @@ public class AddNote extends AppCompatActivity {
         });
 
 
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.close_menu,menu);
+        inflater.inflate(R.menu.close_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.close){
-            Toast.makeText(this,"Not Saved.", Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.close) {
+            Toast.makeText(this, "Not Saved.", Toast.LENGTH_SHORT).show();
             onBackPressed();
-            overridePendingTransition(R.anim.bottomin,R.anim.bottomout);
+            overridePendingTransition(R.anim.bottomin, R.anim.bottomout);
         }
         return super.onOptionsItemSelected(item);
     }
