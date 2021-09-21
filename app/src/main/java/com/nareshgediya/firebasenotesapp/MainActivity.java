@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements SingalChoiceAlert
         broadcastReceiver = new CheckInterrnetConnetion();
 
 
-        instance = this;
+        instance =this;
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         user = fAuth.getCurrentUser();
@@ -166,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements SingalChoiceAlert
                 case R.id.nav_addNote:
                     startActivity(new Intent(MainActivity.this, AddNote.class));
                     overridePendingTransition(R.anim.bottomin, R.anim.bottomout);
+
                     break;
                 case R.id.nav_logout:
                     fAuth.signOut();
@@ -198,6 +199,8 @@ public class MainActivity extends AppCompatActivity implements SingalChoiceAlert
 //        for (int i = 0;i<20;i++){
 //            note.add(notes);
 //        }
+
+
         if (fAuth.getCurrentUser() != null) {
 //            SharedPreferences preferences = getSharedPreferences(FILE_NAME,MODE_PRIVATE);
 //          String choicePrefrence =   preferences.getString("1","Data Note Found");
@@ -212,15 +215,14 @@ public class MainActivity extends AppCompatActivity implements SingalChoiceAlert
         }
 
     }
+
     private void checkInternet() {
 
         registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(broadcastReceiver);
+    public void updateRfromOther(){
+        recyclerUpdateByDESCENDING(fStore, user, note, noteAdapter, MainActivity.this, noteCount);
     }
 
 

@@ -47,8 +47,7 @@ public class AddNote extends AppCompatActivity {
     FirebaseUser user;
     NoteAdapter noteAdapter;
     ArrayList<Note> note;
-    Context context;
-    MainActivity mainActivity;
+    MainActivity instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +55,7 @@ public class AddNote extends AppCompatActivity {
         setContentView(R.layout.add_note);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         fStore = FirebaseFirestore.getInstance();
         noteContent = findViewById(R.id.addNoteContent);
@@ -125,11 +125,13 @@ public class AddNote extends AppCompatActivity {
                                                     }
                                                     noteAdapter.notifyDataSetChanged();
 
+
                                                 }
                                             }
                                         });
                                 Toast.makeText(AddNote.this, "Note Added.", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(AddNote.this, MainActivity.class));
+                            //    startActivity(new Intent(AddNote.this, MainActivity.class));
+                                MainActivity.getInstance().updateRfromOther();
                                 finish();
                             }
                         })
